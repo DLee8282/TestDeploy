@@ -55,10 +55,6 @@ public class FrontController extends DefaultServlet{
 		doGet(req,resp);
 	}
 	
-	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req,resp);
-	}
 	
 	
 }

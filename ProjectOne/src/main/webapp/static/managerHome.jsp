@@ -52,7 +52,7 @@
 			<thead>
 				<tr>
 					<th scope="col">Employee ID</th>
-					<th scope="col"> Request ID </th>
+					<th scope="col">Request ID</th>
 					<th scope="col">Date</th>
 					<th scope="col">Type</th>
 					<th scope="col">Amount</th>
@@ -182,37 +182,28 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<label class="col-form-label"> Request ID</label> <select
-							name="idAppDeny" id="reqID">
-							<option value = "null"> Choose one... </option>
+				<form action="request" method="post">
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-form-label"> Request ID</label> 
+							<select
+								name="requestID" id="reqID">
+								<option value="null">Choose one...</option>
+							</select>
+						</div>
+						Change Status: 
+						<select name="appDenyselect" id="approveDeny">
+							<option value="approve">Approve</option>
+							<option value="deny">Deny</option>
 						</select>
 					</div>
-					<table id="pendingReq" class="table">
-						<thead>
-							<tr>
-								<th scope="col">Date</th>
-								<th scope="col">Type</th>
-								<th scope="col">Amount</th>
-								<th scope="col">Status</th>
-								<th scope="col">Description</th>
-							</tr>
-						</thead>
-					</table>
-				<select name="appDenyselect" id="approveDeny">
-			    	<option value= "approve"> Approve </option>
-			    	<option value= "deny"> Deny </option>
-			    </select>
-
-				</div>
-				<div class="modal-footer">
-					<button id="getRequests" type="button" class="btn btn-secondary"
-							data-dismiss="modal">See Request</button>
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-					<button id="submitStatus" type="submit" class="btn btn-primary"> Submit </button>
-				</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+						<button id="submitStatus" type="submit" class="btn btn-primary">
+							Submit</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -289,6 +280,15 @@
 						<label>Password</label> <input name="passw" type="password"
 							class="form-control" placeholder="Password" required>
 					</div>
+					Permissions:
+					<div class="form-group">
+						<select id="isManager" name ="isManager">
+							<option value ="Yes"> Make Manager </option>
+							<option value ="No" selected> Make Employee </option>
+						 </select>
+					</div>
+					
+					
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary">Submit</button>
 						<button type="button" class="btn btn-secondary"
@@ -298,14 +298,14 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="table">
 		<h5>Past Requests:</h5>
 		<table id="allPastRequests" class="table">
 			<thead>
 				<tr>
 					<th scope="col">Employee ID</th>
-					<th scope="col"> Request ID </th>
+					<th scope="col">Request ID</th>
 					<th scope="col">Date</th>
 					<th scope="col">Type</th>
 					<th scope="col">Amount</th>

@@ -219,7 +219,8 @@ public class EmployeeDAOImp implements EmployeeDAO {
 				stmt.setDouble(4, req.getRequestAmount());
 			}
 			else {
-				stmt.setDouble(4, java.sql.Types.NULL);
+				System.out.println("Setting to null");
+				stmt.setNull(4, java.sql.Types.DOUBLE); 
 			}
 			if (req.getRequestDate() != null) {
 				stmt.setString(5, formatter.format(req.getRequestDate()));

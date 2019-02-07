@@ -4,6 +4,7 @@ $(document).ready ( function () {
 		if ((x.readyState == 4) && (x.status == 200)) {
 			let parsed = JSON.parse(x.responseText);
 			for (var i in parsed) {
+				console.log(parsed);
 				$("#allEmployeeTable").find('tbody').append( 
 				"<tr><td>" + parsed[i].userID 
 				+ "</td><td>" + parsed[i].firstName
@@ -14,10 +15,12 @@ $(document).ready ( function () {
 			}
 			
 			for (var j in parsed) {
+				if(parsed[j].isMgr == false) {
 				 $('#empID')
 		         .append($("<option></option>")
 		                    .attr("value",parsed[j].userID)
 		                    .text(parsed[j].userID)); 
+				}
 			}
 			
 		}
@@ -47,10 +50,12 @@ $(document).ready ( function () {
 			
 			for (var req in parsed2) {
 				console.log(parsed2[req].requestID);
-				 $('#reqID')
-		         .append($("<option></option>")
-		                    .attr("value",parsed2[req].requestID)
-		                    .text(parsed2[req].requestID)); 
+				if (parsed2[req].reqStatus == 0) {
+					 $('#reqID')
+			         .append($("<option></option>")
+			                    .attr("value",parsed2[req].requestID)
+			                    .text(parsed2[req].requestID)); 
+				} 
 			}
 		}
 	}

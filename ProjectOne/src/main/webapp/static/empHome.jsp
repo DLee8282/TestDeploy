@@ -60,7 +60,7 @@
 
 	<div class="container" id="employee-request">
 		<div class="row">
-			<div class="col-md-4 offset-md-1">
+			<div class="col-md-4 offset-md-4">
 				<div class="card" style="width: 20rem;">
 					<div class="card-body">
 						<h5 class="card-title">Create a request</h5>
@@ -116,21 +116,14 @@
 				</div>
 			</div>
 
-			<div class="col-md-4 offset-md-1">
-				<div class="card" style="width: 20rem;">
-					<div class="card-body">
-						<h5 class="card-title">Change a request</h5>
-						<p class="card-text">Change a request you made.</p>
 
-						<form action="info" method="put">
-							<button type="submit" name="changeReq" class="btn btn-info"
-								type="submit">Change a Request</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
+	
+
+
+
+
+
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

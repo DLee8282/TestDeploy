@@ -44,36 +44,28 @@ public class WebServiceImp implements WebService {
 		if ("POST".contentEquals(request.getMethod())) {
 			HttpSession session = request.getSession();
 			int id = (int) session.getAttribute("id");
-			System.out.println(id);
 			String username = (String) session.getAttribute("username");
-			System.out.println(username);
 			String email = (String) request.getParameter("updEmail");
-			System.out.println(email);
 			String firstname = (String) request.getParameter("first");
-			System.out.println(firstname);
 			String lastname = (String) request.getParameter("last");
-			System.out.println(lastname);
 			String password = (String) request.getParameter("pass");
-			System.out.println(password);
 			Employee update = new Employee();
 			update.setUserID(id);
 			update.setUsername(username);
+			update.setMgr((boolean) session.getAttribute("manager"));
 			if (email != null) {
 				update.setEmail(email);
 				session.setAttribute("email", email);
 			}
 			if (firstname != null) {
 				update.setFirstName(firstname);
-				System.out.println("changed firstname to " +firstname);
 				session.setAttribute("firstname", firstname);
 			}
 			if (lastname != null) {
-				System.out.println("changed lastname to " +lastname);
 				update.setLastName(lastname);
 				session.setAttribute("lastname", lastname);
 			}
 			if (password.length() > 0){
-				System.out.println("changed password to " +password);
 				update.setPassword(password);
 			}
 			
@@ -93,7 +85,6 @@ public class WebServiceImp implements WebService {
 		System.out.println("Getting all requests");
 		// Making a new request - Employee only
 		if ("POST".contentEquals(request.getMethod())) {
-			System.out.println("POSTING!!");
 			Requests new_req = new Requests();
 			new_req.setEmpID((int) session.getAttribute("id"));
 			new_req.setRequestType(request.getParameter("reqType"));
@@ -193,6 +184,9 @@ public class WebServiceImp implements WebService {
 			new_emp.setEmail(request.getParameter("email"));
 			new_emp.setUsername(request.getParameter("user"));
 			new_emp.setPassword(request.getParameter("passw"));
+			if(request.getParameter("isManager").toLowerCase().equals("yes")) {
+				new_emp.setMgr(true);
+			}
 			System.out.println("creating employee");
 			EmployeeService.getEmployeeService().addEmployee(new_emp);
 			response.sendRedirect("home");			
@@ -206,12 +200,31 @@ public class WebServiceImp implements WebService {
 	
 	//Handles pending/approve deny
 	public void HandleRequests(HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException, IOException {
-		//Approving/Denying requests AND Updating requests
+		//Approving/Denying requests
 		if ("POST".contentEquals(request.getMethod())) {
-			Requests change_req = new Requests();
-			int requestID = Integer.parseInt(request.getParameter("approveDeny"));
-			String appDeny = request.getParameter("idAppDeny");
+			HttpSession session = request.getSession();
+			if ((boolean) session.getAttribute("manager")) {
+				Requests updatereq = new Requests();
+				int mgrID = (int) session.getAttribute("id");
+				if (request.getParameter("requestID").equals("null")) {
+					response.sendRedirect("home");
+				}
+				else {
+				int requestID = Integer.parseInt(request.getParameter("requestID"));
+				updatereq.setRequestID(requestID);
 			
+				String approval = request.getParameter("appDenyselect");
+				if (approval.contains("approve")) {
+					updatereq.setReqStatus(2);
+				}
+				else if (approval.contains("deny")) {
+					updatereq.setReqStatus(1);
+				}
+				updatereq.setMgrID(mgrID);
+				EmployeeService.getEmployeeService().changeRequest(updatereq);
+				response.sendRedirect("home");
+				}
+			}
 		}
 		//Get all requests
 		if ("GET".contentEquals(request.getMethod())) {
