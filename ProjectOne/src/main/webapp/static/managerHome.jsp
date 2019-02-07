@@ -19,7 +19,7 @@
 </style>
 <title>Manager Home page</title>
 </head>
-<body>
+<body class="bg-light">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<h3>
 			Welcome
@@ -30,7 +30,6 @@
 				out.println(string + "!");
 			%>
 		</h3>
-
 
 		<form action="home" method="get">
 			<button type="submit" class="btn btn-light">Home Page</button>
@@ -44,34 +43,32 @@
 		</form>
 
 	</nav>
-
-
-	<div class="table">
-		<h5>Pending Requests:</h5>
-		<table id="pendingTable" class="table">
-			<thead>
-				<tr>
-					<th scope="col">Employee ID</th>
-					<th scope="col">Request ID</th>
-					<th scope="col">Date</th>
-					<th scope="col">Type</th>
-					<th scope="col">Amount</th>
-					<th scope="col">Description</th>
-				</tr>
-			</thead>
-
-			<tbody>
-			</tbody>
-		</table>
+	<div class="container">
+		<div class="row">
+			<div class="table col-md-12">
+				<h5>Pending Requests:</h5>
+				<table id="pendingTable" class="table">
+					<thead>
+						<tr>
+							<th scope="col">Employee ID</th>
+							<th scope="col">Request ID</th>
+							<th scope="col">Date</th>
+							<th scope="col">Type</th>
+							<th scope="col">Amount</th>
+							<th scope="col">Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 
-
-
-	<div class="container-fluid" id="Managercontainer">
-
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="card" style="width: 20rem;">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-3 d-flex align-items-stretch">
+				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">Approve/Deny requests</h5>
 						<p class="card-text">Approve/Deny requests.</p>
@@ -82,8 +79,8 @@
 				</div>
 			</div>
 
-			<div class="col-lg-3">
-				<div class="card" style="width: 20rem;">
+			<div class="col-lg-3 d-flex align-items-stretch">
+				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">Add an employee</h5>
 						<p class="card-text">Add a new employee to the system.</p>
@@ -96,24 +93,24 @@
 			</div>
 
 
-			<div class="col-md-3">
-				<div class="card" style="width: 20rem;">
+			<div class="col-lg-3 d-flex align-items-stretch">
+				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">View all employees</h5>
 						<p class="card-text">View all employees.</p>
 						<button type="button" class="btn btn-primary" data-toggle="modal"
 							id="AllEmpBtn" data-target="#empModal"
-							data-whatever="@getbootstrap">All Employees</button>
+							data-whatever="@getbootstrap">View All Employees</button>
 					</div>
 				</div>
 			</div>
 
 
-			<div class="col-md-3">
-				<div class="card" style="width: 20rem;">
+			<div class="col-lg-3 d-flex align-items-stretch">
+				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">View a Employee Request</h5>
-						<p class="card-text">View a request from a particular
+						<p class="card-text">View requests made from a particular
 							employee.</p>
 						<button type="button" class="btn btn-primary" data-toggle="modal"
 							id="AllEmpBtn" data-target="#empRequest"
@@ -129,7 +126,7 @@
 
 	<div class="modal fade" id="empRequest" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">See a Employee
@@ -186,13 +183,11 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label class="col-form-label"> Request ID</label> 
-							<select
-								name="requestID" id="reqID">
+							<select name="requestID" id="reqID">
 								<option value="null">Choose one...</option>
 							</select>
 						</div>
-						Change Status: 
-						<select name="appDenyselect" id="approveDeny">
+						Change Status: <select name="appDenyselect" id="approveDeny">
 							<option value="approve">Approve</option>
 							<option value="deny">Deny</option>
 						</select>
@@ -211,7 +206,7 @@
 
 	<div class="modal fade" id="empModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-xl" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">All Employees</h5>
@@ -255,70 +250,75 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
+				<div class="container">
+					<form action="employee" method="post">
+						<div class="form-group">
+							<label>Email address</label> <input name="email" type="email"
+								class="form-control" aria-describedby="emailHelp"
+								placeholder="Enter email">
+						</div>
+						<div class="form-group">
+							<label> First Name</label> <input name="firstN" type="text"
+								class="form-control" placeholder="Enter first name" required>
+						</div>
 
-				<form action="employee" method="post">
-					<div class="form-group">
-						<label>Email address</label> <input name="email" type="email"
-							class="form-control" aria-describedby="emailHelp"
-							placeholder="Enter email">
-					</div>
-					<div class="form-group">
-						<label> First Name</label> <input name="firstN" type="text"
-							class="form-control" placeholder="First Name" required>
-					</div>
+						<div class="form-group">
+							<label>Last Name</label> <input name="lastN" type="text"
+								class="form-control" placeholder="Enter last name" required>
+						</div>
+						<div class="form-group">
+							<label>User name</label> <input name="user" type="text"
+								class="form-control" placeholder="Enter username" required>
+						</div>
 
-					<div class="form-group">
-						<label>Last Name</label> <input name="lastN" type="text"
-							class="form-control" placeholder="Last Name" required>
-					</div>
-					<div class="form-group">
-						<label>User name</label> <input name="user" type="text"
-							class="form-control" placeholder="User Name" required>
-					</div>
+						<div class="form-group">
+							<label>Password</label> <input name="passw" type="password"
+								class="form-control" placeholder="Enter password" required>
+						</div>
+						Permissions:
+						<div class="form-group">
+							<select id="isManager" name="isManager">
+								<option value="Yes">Make Manager</option>
+								<option value="No" selected>Make Employee</option>
+							</select>
+						</div>
 
-					<div class="form-group">
-						<label>Password</label> <input name="passw" type="password"
-							class="form-control" placeholder="Password" required>
-					</div>
-					Permissions:
-					<div class="form-group">
-						<select id="isManager" name ="isManager">
-							<option value ="Yes"> Make Manager </option>
-							<option value ="No" selected> Make Employee </option>
-						 </select>
-					</div>
-					
-					
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-primary">Submit</button>
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Close</button>
-					</div>
-				</form>
+
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="table">
-		<h5>Past Requests:</h5>
-		<table id="allPastRequests" class="table">
-			<thead>
-				<tr>
-					<th scope="col">Employee ID</th>
-					<th scope="col">Request ID</th>
-					<th scope="col">Date</th>
-					<th scope="col">Type</th>
-					<th scope="col">Amount</th>
-					<th scope="col">Description</th>
-					<th scope="col">Status</th>
-					<th scope="col">Manager ID</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-	</div>
 
+	<div class="container">
+		<div class="row">
+			<div class="table col-md-12">
+				<h5>Past Requests:</h5>
+				<table id="allPastRequests" class="table">
+					<thead>
+						<tr>
+							<th scope="col">Employee ID</th>
+							<th scope="col">Request ID</th>
+							<th scope="col">Date</th>
+							<th scope="col">Type</th>
+							<th scope="col">Amount</th>
+							<th scope="col">Description</th>
+							<th scope="col">Status</th>
+							<th scope="col">Manager ID</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

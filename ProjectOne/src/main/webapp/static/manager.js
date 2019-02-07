@@ -121,8 +121,7 @@ btn.addEventListener("click",
 					document.getElementById("personalTable").append(row);
 					}
 				}
-		}
-			
+		}	
 		}
 	x.open("GET","http://localhost:8080/ProjectOne/request");	
 	x.send();

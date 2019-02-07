@@ -37,9 +37,9 @@
 
 	</nav>
 
-	<div class="container" id="all-requests">
-		<h5>Your submitted Requests:</h5>
-		<table id="employeeTable" class="table">
+	<div class="container" id="pendingRequests">
+		<h5>Your Pending Requests:</h5>
+		<table id="employeeTablePending" class="table">
 			<thead>
 				<tr>
 					<th scope="col">#ID</th>
@@ -48,7 +48,7 @@
 					<th scope="col">Amount</th>
 					<th scope="col">Description</th>
 					<th scope="col">Status</th>
-					<th scope="col">Approved By: </th>
+					<th scope="col">Approved By:</th>
 				</tr>
 			</thead>
 
@@ -61,67 +61,86 @@
 	<div class="container" id="employee-request">
 		<div class="row">
 			<div class="col-md-4 offset-md-4">
-				<div class="card" style="width: 20rem;">
+				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">Create a request</h5>
 						<p class="card-text">Create a new request</p>
-							<button type="button" class="btn btn-primary" data-toggle="modal"
-								data-target="#requestModal" data-whatever="@getbootstrap">
-								Create Request</button>
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#requestModal" data-whatever="@getbootstrap">
+							Create Request</button>
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
 
-		
-			<div class="modal fade" id="requestModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">New Request</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-					<form action="info" method="post">
-						<div class="modal-body">
-								<div class="form-group">
-									<label class="col-form-label">Request Type:</label> 
-									<select name="reqType">
-										<option value="Training">Training</option>
-										<option value="Travel">Travel</option>
-										<option value="Supplies">Supplies</option>
-										<option value="Other">Other</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<label class="col-form-label">Request Amount:</label> 
-									<input name = "reqAmount" type="number" step="0.01" />
-								</div>
+	<div class="container" id="pastRequests">
+		<h5>Your Past Requests:</h5>
+		<table id="employeeTablePast" class="table">
+			<thead>
+				<tr>
+					<th scope="col">#ID</th>
+					<th scope="col">Date</th>
+					<th scope="col">Type</th>
+					<th scope="col">Amount</th>
+					<th scope="col">Description</th>
+					<th scope="col">Status</th>
+					<th scope="col">Approved By:</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
 
-								<div class="form-group">
-									<label class="col-form-label">Description:</label>
-									<textarea name="reqDesc" class="form-control" id="message-text"></textarea>
-								</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary">Submit
-								Request</button>
-						</div>
-						</form>
-					</div>
+
+
+
+
+
+
+	<div class="modal fade" id="requestModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">New Request</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
+				<form action="info" method="post">
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-form-label">Request Type:</label> <select
+								name="reqType">
+								<option value="Training">Training</option>
+								<option value="Travel">Travel</option>
+								<option value="Supplies">Supplies</option>
+								<option value="Other">Other</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="col-form-label">Request Amount:</label> <input
+								name="reqAmount" type="number" step="0.01" />
+						</div>
+
+						<div class="form-group">
+							<label class="col-form-label">Description:</label>
+							<textarea name="reqDesc" class="form-control" id="message-text"></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Submit
+							Request</button>
+					</div>
+				</form>
 			</div>
-
-
-
-	
-
-
-
+		</div>
+	</div>
 
 
 

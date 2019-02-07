@@ -6,23 +6,41 @@ $(document).ready ( function () {
 			console.log(x.responseText);
 			let parsed = JSON.parse(x.responseText);
 			console.log(parsed);
+			console.log("fuck you");
 			for (var i in parsed) {
-				$("#employeeTable").find('tbody').append( 
-				"<tr><td>" + parsed[i].requestID 
-				+ "</td><td>" + parsed[i].requestDate.monthValue +"/" 
-				+ parsed[i].requestDate.dayOfMonth + "/" +parsed[i].requestDate.year
-				+ "</td><td>" + parsed[i].requestType
-				+ "</td><td> " +"$" +parsed[i].requestAmount
-				+ "</td> <td> " + parsed[i].requestDesc 
-				+ "</td><td>" + convertStatus(parsed[i].reqStatus)
-				+ "</td><td>" +checkManager(parsed[i].mgrID)
-				+ "</td></tr>" );
+				console.log("yo");
+				if (parsed[i].reqStatus == 0) {
+					$("#employeeTablePending").find('tbody').append( 
+					"<tr><td>" + parsed[i].requestID 
+					+ "</td><td>" + parsed[i].requestDate.monthValue +"/" 
+					+ parsed[i].requestDate.dayOfMonth + "/" +parsed[i].requestDate.year
+					+ "</td><td>" + parsed[i].requestType
+					+ "</td><td> " +"$" +parsed[i].requestAmount
+					+ "</td> <td> " + parsed[i].requestDesc 
+					+ "</td><td>" + convertStatus(parsed[i].reqStatus)
+					+ "</td><td>" +checkManager(parsed[i].mgrID)
+					+ "</td></tr>" );
+				}
+				else {
+					$("#employeeTablePast").find('tbody').append( 
+							"<tr><td>" + parsed[i].requestID 
+							+ "</td><td>" + parsed[i].requestDate.monthValue +"/" 
+							+ parsed[i].requestDate.dayOfMonth + "/" +parsed[i].requestDate.year
+							+ "</td><td>" + parsed[i].requestType
+							+ "</td><td> " +"$" +parsed[i].requestAmount
+							+ "</td> <td> " + parsed[i].requestDesc 
+							+ "</td><td>" + convertStatus(parsed[i].reqStatus)
+							+ "</td><td>" +checkManager(parsed[i].mgrID)
+							+ "</td></tr>" );	
+				}
 			}	
 		}
 	}
 	x.open("GET","http://localhost:8080/ProjectOne/info");	
 	x.send();
 });
+
+
 
 function convertStatus(status) {
 	if (status === 1) {
