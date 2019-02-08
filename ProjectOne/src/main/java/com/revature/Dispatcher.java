@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.revature.exceptions.BadPathException;
 import com.revature.models.Employee;
 import com.revature.services.WebService;
 import com.revature.services.WebServiceImp;
@@ -15,7 +16,7 @@ public class Dispatcher {
 	private static final WebService web = new WebServiceImp();
 
 	
-	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, BadPathException {
 		//ContextPath() is the path after localhost8080:/
 		String switchString = request.getRequestURI().substring(request.getContextPath().length()+1);
 		while (switchString.indexOf("/") > 0) {
@@ -45,8 +46,7 @@ public class Dispatcher {
 		case "request": web.HandleRequests(request, response);
 		break;
 		default: 
-			System.out.println("Sorry not yet implemented.");
-			break;
+			throw new BadPathException();
 		}
 	}
 }

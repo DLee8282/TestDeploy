@@ -9,7 +9,15 @@ import com.revature.services.EmployeeService;
 public class Driver {
 	
 	public static void main(String[] args) {
-		System.out.println(EmployeeService.getEmployeeService().getAllEmployees());
+		//System.out.println(EmployeeService.getEmployeeService().getAllEmployees());
+		Employee emp1 = new Employee();
+		emp1.setUserID(101);
+		EmployeeService.getEmployeeService().setEmployeeInformation(emp1);
+		Employee emp = new Employee();
+		emp.setUserID(101);
+		emp.setUsername("David");
+		EmployeeService.getEmployeeService().setEmployeeInformation(emp);
+		System.out.println(EmployeeService.getEmployeeService().getEmployeeInformation(emp));
 //	}
 //		Employee emp = new Employee();
 //		emp.setFirstName("David");

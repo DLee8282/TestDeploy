@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
-
 <!DOCTYPE html>
+
+
+
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -14,6 +15,12 @@
 <title>Employee Home Page</title>
 </head>
 <body>
+	<%
+	if(session.getAttribute("id")== null)
+	    response.sendRedirect("/ProjectOne/");
+	%>
+
+
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<h2>
 			Welcome
@@ -48,7 +55,7 @@
 					<th scope="col">Amount</th>
 					<th scope="col">Description</th>
 					<th scope="col">Status</th>
-					<th scope="col">Approved By:</th>
+					<th scope="col">Reviewed By:</th>
 				</tr>
 			</thead>
 
@@ -85,7 +92,7 @@
 					<th scope="col">Amount</th>
 					<th scope="col">Description</th>
 					<th scope="col">Status</th>
-					<th scope="col">Approved By:</th>
+					<th scope="col">Reviewed By:</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -141,7 +148,6 @@
 			</div>
 		</div>
 	</div>
-
 
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

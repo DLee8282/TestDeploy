@@ -97,6 +97,8 @@ public class EmployeeDAOImp implements EmployeeDAO {
 	}
 	
 	public boolean setEmployeeInformation(Employee emp) {
+		if (emp.getPassword() == null || emp.getPassword().equals(""))
+			throw new RuntimeException();
 		//TODO? Error checking user_ID doesn't exist and stuff
 		try (Connection conn = ConnectionUtils.getConnection()) {
 			CallableStatement stmt = conn.prepareCall(
@@ -331,13 +333,6 @@ public class EmployeeDAOImp implements EmployeeDAO {
 		}
 
 		return new ArrayList<Requests>();
-	}
-	
-
-//VALIDATION----------------------------------------------
-	
-	public boolean checkLogin(Employee emp) {
-		return false;
 	}
 	
 }

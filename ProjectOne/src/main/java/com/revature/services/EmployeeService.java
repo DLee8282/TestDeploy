@@ -51,6 +51,10 @@ public class EmployeeService {
 		return EmployeeDAOImp.getEmployeeDAO().addEmployee(emp);
 	}
 	
+	/**
+	 * @param emp Employee instance
+	 * @return Object instance
+	 */
 	public Object LoginEmployee(Employee emp) {
 		return EmployeeDAOImp.getEmployeeDAO().LoginEmployee(emp);
 	}

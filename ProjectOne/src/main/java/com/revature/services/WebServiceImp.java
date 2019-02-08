@@ -19,22 +19,34 @@ public class WebServiceImp implements WebService {
 
 	private final ObjectMapper mapper = new ObjectMapper();
 	
+	
+	
 	//Processes go home requests
 	public void goToHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession getSession = request.getSession();
-		boolean isMgr = (boolean) getSession.getAttribute("manager");
-		if (isMgr) {
-			RequestDispatcher disp = request.getRequestDispatcher("/static/managerHome.jsp");
-			disp.include(request, response);
+		HttpSession session = request.getSession();
+		if (session.getAttribute("manager") == null) {
+			response.sendRedirect("/ProjectOne/");
 		}
 		else {
-			RequestDispatcher disp = request.getRequestDispatcher("/static/empHome.jsp");
-			disp.include(request, response);
+			boolean isMgr = (boolean) session.getAttribute("manager");
+			if (isMgr) {
+				RequestDispatcher disp = request.getRequestDispatcher("/static/managerHome.jsp");
+				disp.include(request, response);
+			}
+			else {
+				RequestDispatcher disp = request.getRequestDispatcher("/static/empHome.jsp");
+				disp.include(request, response);
+			}
 		}
 	}
 	
 	//Processes profile requests
 	public void goToProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		if (session.getAttribute("id") == null) {
+			response.sendRedirect("/ProjectOne/");
+		}
+		
 		RequestDispatcher disp = request.getRequestDispatcher("/static/Profile.jsp");
 		disp.include(request, response);	
 	}
@@ -45,27 +57,33 @@ public class WebServiceImp implements WebService {
 			HttpSession session = request.getSession();
 			int id = (int) session.getAttribute("id");
 			String username = (String) session.getAttribute("username");
+			System.out.println(username);
 			String email = (String) request.getParameter("updEmail");
+			System.out.println(email);
 			String firstname = (String) request.getParameter("first");
+			System.out.println(firstname);
 			String lastname = (String) request.getParameter("last");
+			System.out.println(lastname);
 			String password = (String) request.getParameter("pass");
+			System.out.println(password);
+			System.out.println(password.length());
 			Employee update = new Employee();
 			update.setUserID(id);
 			update.setUsername(username);
 			update.setMgr((boolean) session.getAttribute("manager"));
-			if (email != null) {
+			if (!email.isEmpty()) {
 				update.setEmail(email);
 				session.setAttribute("email", email);
 			}
-			if (firstname != null) {
+			if (!firstname.isEmpty()) {
 				update.setFirstName(firstname);
 				session.setAttribute("firstname", firstname);
 			}
-			if (lastname != null) {
+			if (!lastname.isEmpty()) {
 				update.setLastName(lastname);
 				session.setAttribute("lastname", lastname);
 			}
-			if (password.length() > 0){
+			if (!password.isEmpty()){
 				update.setPassword(password);
 			}
 			
@@ -78,6 +96,7 @@ public class WebServiceImp implements WebService {
 	//Processes requests
 	public void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
+		System.out.println(session);
 		Employee cur_emp = new Employee();
 		cur_emp.setUsername((String) session.getAttribute("username"));
 		cur_emp = EmployeeService.getEmployeeService().getEmployeeInformation(cur_emp);
@@ -110,15 +129,11 @@ public class WebServiceImp implements WebService {
 		}
 	}
 
-	// Process the login page
-	
 	//Processes the login methods
 	@Override
 	public void processLogin(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		if (request.getSession(false) != null) {
-			request.getSession(false).invalidate();
-		}
+		HttpSession newSession = request.getSession();
 		// If the method is POST: (User is logging in)
 		if ("POST".contentEquals(request.getMethod())) {
 			Employee login = new Employee();
@@ -131,7 +146,6 @@ public class WebServiceImp implements WebService {
 			// Checks if the user name and password is valid
 			if (EmployeeService.getEmployeeService().LoginEmployee(login) != null) {
 				System.out.println("Returning emp info");
-				HttpSession newSession = request.getSession(true);
 				login = EmployeeService.getEmployeeService().getEmployeeInformation(login);
 				newSession.setAttribute("id", login.getUserID());
 				newSession.setAttribute("username", login.getUsername());
@@ -151,24 +165,20 @@ public class WebServiceImp implements WebService {
 				}
 			} else {
 				// Go back to the login page
+				newSession.setAttribute("login", "invalid");
 				System.out.println("redirecting");
 				response.sendRedirect("/ProjectOne/");
 			}
 		}
 	}
 
-	// Process the logout page
-	
 	//Process logout
 	public void processLogout(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		HttpSession oldSession = request.getSession(false);
+		HttpSession oldSession = request.getSession();
 		System.out.println("Im in processLogout");
-		if (oldSession != null) {
-			System.out.println("session is gone");
-			oldSession.invalidate();
-		}
-		response.sendRedirect("/ProjectOne/");
+		oldSession.invalidate();
+		response.sendRedirect("home");
 	}
 
 	//Handles employees
@@ -199,6 +209,7 @@ public class WebServiceImp implements WebService {
 	}
 	
 	//Handles pending/approve deny
+
 	public void HandleRequests(HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException, IOException {
 		//Approving/Denying requests
 		if ("POST".contentEquals(request.getMethod())) {

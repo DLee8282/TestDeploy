@@ -1,0 +1,43 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
+<link href="static/styles.css" rel="stylesheet">
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<title>Employee Web Services</title>
+</head>
+<body class="bg-dark">
+
+	<div class="container text-light mt-5">
+		<div class="row justify-content-center">
+			<h1>Welcome to Employee Web Services!</h1>
+		</div>
+
+		<div class="row justify-content-center bg-dark">
+			<div id = "loginContainer" class="col-5 mt-5 p-5 bg-light text-dark">
+				<form action="login" method="post">
+					<div class="form-group">
+						<label for="username"> Enter your Username: </label> <input
+							class="form-control" id="username" name="username"
+							aria-describedby="username" placeholder="Enter username">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">Password:</label> <input
+							type="password" class="form-control" id="password"
+							name="password" placeholder="Enter password">
+					</div>
+					<button type="submit" class="mb-5 mt-5 btn-block btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+<script src="static/ajaxrequest.js"></script>
+</body>
+</html>
